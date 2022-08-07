@@ -90,7 +90,8 @@ data HailgunMessage = HailgunMessage
     messageTo :: [VerifiedEmailAddress],
     messageCC :: [VerifiedEmailAddress],
     messageBCC :: [VerifiedEmailAddress],
-    messageAttachments :: [SpecificAttachment]
+    messageAttachments :: [SpecificAttachment],
+    messageHeaders :: [(T.Text, T.Text)]
   }
   deriving (Show)
 
@@ -102,7 +103,6 @@ data HailgunMessage = HailgunMessage
 -- TODO o:tracking support
 -- TODO o:tracking-clicks support
 -- TODO o:tracking-opens support
--- TODO custom mime header support
 -- TODO custom message data support
 
 -- | An Attachment that may be sent. It contains the file path of the attachment and the data that you wish to send in

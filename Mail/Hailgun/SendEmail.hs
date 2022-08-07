@@ -51,10 +51,14 @@ toSimpleEmailParts message =
     ++ cc
     ++ bcc
     ++ fromContent (messageContent message)
+    ++ map convertHeader (messageHeaders message)
   where
     to = convertEmails (BC.pack "to") . messageTo $ message
     cc = convertEmails (BC.pack "cc") . messageCC $ message
     bcc = convertEmails (BC.pack "bcc") . messageBCC $ message
+
+    convertHeader (hk, hv) =
+      (T.encodeUtf8 ("h:" <> hk), T.encodeUtf8 hv)
 
     fromContent :: MessageContent -> [(BC.ByteString, BC.ByteString)]
     fromContent t@(TextOnly _) = [(BC.pack "text", textContent t)]
